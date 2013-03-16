@@ -7,6 +7,8 @@ package it.sauronsoftware.feed4j;
  */
 public abstract class FeedException extends Exception {
 
+	private static final long serialVersionUID = -2476084732698286659L;
+
 	public FeedException() {
 		super();
 	}

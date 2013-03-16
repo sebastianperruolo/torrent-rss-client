@@ -1,7 +1,7 @@
 package it.sauronsoftware.feed4j.bean;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * This class is used to represent a XML element.
@@ -29,12 +29,12 @@ public class RawElement implements RawNode {
 	/**
 	 * The element attributes.
 	 */
-	private ArrayList attributes = null;
+	private List<RawAttribute> attributes = null;
 
 	/**
 	 * The element nodes.
 	 */
-	private ArrayList nodes = null;
+	private List<RawNode> nodes = null;
 
 	/**
 	 * This method returns the element name.
@@ -108,9 +108,8 @@ public class RawElement implements RawNode {
 			throws IndexOutOfBoundsException {
 		if (attributes == null) {
 			throw new IndexOutOfBoundsException();
-		} else {
-			return (RawAttribute) attributes.get(index);
 		}
+		return attributes.get(index);
 	}
 
 	/**
@@ -121,7 +120,7 @@ public class RawElement implements RawNode {
 	 */
 	public void addAttribute(RawAttribute attribute) {
 		if (attributes == null) {
-			attributes = new ArrayList();
+			attributes = new ArrayList<RawAttribute>();
 		}
 		attributes.add(attribute);
 	}
@@ -134,9 +133,8 @@ public class RawElement implements RawNode {
 	public int getAttributeCount() {
 		if (attributes == null) {
 			return 0;
-		} else {
-			return attributes.size();
 		}
+		return attributes.size();
 	}
 
 	/**
@@ -151,16 +149,14 @@ public class RawElement implements RawNode {
 	public String getAttributeValue(String namespaceURI, String name) {
 		if (attributes == null) {
 			return null;
-		} else {
-			for (Iterator i = attributes.iterator(); i.hasNext();) {
-				RawAttribute aux = (RawAttribute) i.next();
-				if (aux.getNamespaceURI().equals(namespaceURI)
-						&& aux.getName().equals(name)) {
-					return aux.getValue();
-				}
+		} 
+		for (RawAttribute aux : attributes) {
+			if (aux.getNamespaceURI().equals(namespaceURI)
+					&& aux.getName().equals(name)) {
+				return aux.getValue();
 			}
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -177,9 +173,8 @@ public class RawElement implements RawNode {
 	public RawNode getNode(int index) throws IndexOutOfBoundsException {
 		if (nodes == null) {
 			throw new IndexOutOfBoundsException();
-		} else {
-			return (RawNode) nodes.get(index);
 		}
+		return nodes.get(index);
 	}
 
 	/**
@@ -195,25 +190,23 @@ public class RawElement implements RawNode {
 	public RawElement[] getElements(String namespaceURI, String name) {
 		if (nodes == null) {
 			return new RawElement[0];
-		} else {
-			ArrayList list = new ArrayList();
-			for (Iterator i = nodes.iterator(); i.hasNext();) {
-				RawNode node = (RawNode) i.next();
-				if (node instanceof RawElement) {
-					RawElement aux = (RawElement) node;
-					if (aux.getNamespaceURI().equals(namespaceURI)
-							&& aux.getName().equals(name)) {
-						list.add(aux);
-					}
+		}
+		List<RawElement> list = new ArrayList<RawElement>();
+		for (RawNode node : nodes) {
+			if (node instanceof RawElement) {
+				RawElement aux = (RawElement) node;
+				if (aux.getNamespaceURI().equals(namespaceURI)
+						&& aux.getName().equals(name)) {
+					list.add(aux);
 				}
 			}
-			int size = list.size();
-			RawElement[] ret = new RawElement[size];
-			for (int i = 0; i < size; i++) {
-				ret[i] = (RawElement) list.get(i);
-			}
-			return ret;
 		}
+		int size = list.size();
+		RawElement[] ret = new RawElement[size];
+		for (int i = 0; i < size; i++) {
+			ret[i] = list.get(i);
+		}
+		return ret;
 	}
 
 	/**
@@ -229,19 +222,17 @@ public class RawElement implements RawNode {
 	public RawElement getElement(String namespaceURI, String name) {
 		if (nodes == null) {
 			return null;
-		} else {
-			for (Iterator i = nodes.iterator(); i.hasNext();) {
-				RawNode node = (RawNode) i.next();
-				if (node instanceof RawElement) {
-					RawElement aux = (RawElement) node;
-					if (aux.getNamespaceURI().equals(namespaceURI)
-							&& aux.getName().equals(name)) {
-						return aux;
-					}
+		} 
+		for (RawNode node : nodes) {
+			if (node instanceof RawElement) {
+				RawElement aux = (RawElement) node;
+				if (aux.getNamespaceURI().equals(namespaceURI)
+						&& aux.getName().equals(name)) {
+					return aux;
 				}
 			}
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -259,14 +250,12 @@ public class RawElement implements RawNode {
 	public String getElementValue(String namespaceURI, String name) {
 		if (nodes == null) {
 			return null;
-		} else {
-			RawElement element = getElement(namespaceURI, name);
-			if (element != null) {
-				return element.getValue();
-			} else {
-				return null;
-			}
-		}
+		} 
+		RawElement element = getElement(namespaceURI, name);
+		if (element != null) {
+			return element.getValue();
+		} 
+		return null;
 	}
 
 	/**
@@ -277,7 +266,7 @@ public class RawElement implements RawNode {
 	 */
 	public void addNode(RawNode node) {
 		if (nodes == null) {
-			nodes = new ArrayList();
+			nodes = new ArrayList<RawNode>();
 		}
 		nodes.add(node);
 	}
@@ -290,9 +279,8 @@ public class RawElement implements RawNode {
 	public int getNodeCount() {
 		if (nodes == null) {
 			return 0;
-		} else {
-			return nodes.size();
 		}
+		return nodes.size();
 	}
 
 	/**

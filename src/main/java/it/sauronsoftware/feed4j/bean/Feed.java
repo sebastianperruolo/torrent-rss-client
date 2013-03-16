@@ -1,6 +1,7 @@
 package it.sauronsoftware.feed4j.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to represent a parsed feed in an object oriented way.
@@ -17,7 +18,7 @@ public class Feed {
 	/**
 	 * The feed items.
 	 */
-	private ArrayList items = null;
+	private List<FeedItem> items = null;
 
 	/**
 	 * This method returns the feed header.
@@ -46,7 +47,7 @@ public class Feed {
 	 */
 	public void addItem(FeedItem item) {
 		if (items == null) {
-			items = new ArrayList();
+			items = new ArrayList<FeedItem>();
 		}
 		items.add(item);
 	}
@@ -66,7 +67,7 @@ public class Feed {
 		if (items == null) {
 			throw new IndexOutOfBoundsException();
 		} else {
-			return (FeedItem) items.get(index);
+			return items.get(index);
 		}
 	}
 
@@ -81,6 +82,15 @@ public class Feed {
 		} else {
 			return items.size();
 		}
+	}
+
+	/**
+	 * This method returns all feed items.
+	 * 
+	 * @return All feed items.
+	 */
+	public List<FeedItem> getItems() {
+		return items;
 	}
 
 }
