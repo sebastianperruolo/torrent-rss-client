@@ -14,12 +14,12 @@ class HTMLEntities {
 	/**
 	 * HTML entities table.
 	 */
-	private static Hashtable entities = new Hashtable();
+	private static Hashtable<String,String> entities = new Hashtable<String,String>();
 
 	/**
 	 * Reversed HTML entities table
 	 */
-	private static Hashtable reversedEntities = new Hashtable();
+	private static Hashtable<String,String> reversedEntities = new Hashtable<String,String>();
 
 	/**
 	 * Entities recognition pattern.
