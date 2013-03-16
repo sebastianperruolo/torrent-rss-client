@@ -58,7 +58,8 @@ class FeedRecognizer extends TypeAbstract {
 		if ("rss".equals(name)) {
 			String version = root.attributeValue("version");
 			if (version == null || version.equals("2.0")
-					|| version.equals("0.91") || version.equals("0.92")) {
+					|| version.equals("0.91") || version.equals("0.92")
+					|| version.equals("0.94")) {
 				return RSS_2_0;
 			}
 		} else if ("RDF".equals(name) && Constants.RDF_NS_URI.equals(nsuri)) {
