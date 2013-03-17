@@ -26,6 +26,8 @@ public class ConfigFeed {
 	}
 
 	public boolean accept(FeedItem feed) {
+		//this must support some complicated algorithm
+		//until I realize how to do it, accept everything
 		return true;
 	}
 	
