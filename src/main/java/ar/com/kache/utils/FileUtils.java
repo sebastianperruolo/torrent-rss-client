@@ -7,13 +7,24 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class FileUtils {
 	private FileUtils() {
 		
+	}
+	
+	public static int getResponseCode(URL url) throws MalformedURLException, IOException {
+	    HttpURLConnection huc =  (HttpURLConnection)  url.openConnection(); 
+	    huc.setRequestMethod("GET"); 
+	    huc.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
+	    huc.connect();
+	    return huc.getResponseCode();
 	}
 	
 	public static void download(URL url, File target) throws IOException {
@@ -72,4 +83,26 @@ public class FileUtils {
 		return sha1.digest(); // Here's your hash. Do your thing with it.
 	}
 
+	public static void copyFile(File sourceFile, File destFile)
+			throws IOException {
+		if (!destFile.exists()) {
+			destFile.createNewFile();
+		}
+
+		FileChannel source = null;
+		FileChannel destination = null;
+		try {
+			source = new FileInputStream(sourceFile).getChannel();
+			destination = new FileOutputStream(destFile).getChannel();
+			destination.transferFrom(source, 0, source.size());
+		} finally {
+			if (source != null) {
+				source.close();
+			}
+			if (destination != null) {
+				destination.close();
+			}
+		}
+	}
+	
 }

@@ -51,12 +51,13 @@ public class App {
 	}
 	
 	private void process(ConfigFeed configFeed, FeedItem feedItem) {
+		System.out.println("===================================='" + feedItem.getTitle() + "'");
 		if (!configFeed.accept(feedItem)) {
 			System.err.println("Feed '" + feedItem.getTitle() + "' was rejected");
-		} else {
-			System.out.println("Feed '" + feedItem.getTitle() + "' was accepted");
-		}
-		
+			return;
+		} 
+
+		System.out.println("Feed '" + feedItem.getTitle() + "' was accepted");
 		URL url = getURL(feedItem);
 		
 		String fileName = url.getFile();
@@ -64,6 +65,21 @@ public class App {
 			fileName = feedItem.getTitle() + ".torrent";
 		}
 		File tempTorrent = new File(AppConfiguration.appTemp, new File(url.getPath()).getName());
+		
+		if (tempTorrent.isFile()) {
+			System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' already exists");
+			return;
+		}
+		try {
+			int code = FileUtils.getResponseCode(url);
+			if (code != 200) {
+				System.err.println("URL " + url.toString() + " return " + code + " code.");
+				return;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 		
 		try {
 			FileUtils.download(url, tempTorrent);
@@ -86,10 +102,14 @@ public class App {
 		System.out.println("New File found!");
 		
 		File watchdirTorrent = new File(appConfiguration.getConfiguration().getWatchDir(), tempTorrent.getName());
-		
-		if (tempTorrent.renameTo(watchdirTorrent)) {
-			history.add(hash);
+		try {
+			FileUtils.copyFile(tempTorrent, watchdirTorrent);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
+
+		history.add(hash);
 		System.out.println("Added file " + watchdirTorrent.getAbsolutePath());
 	}
 	
