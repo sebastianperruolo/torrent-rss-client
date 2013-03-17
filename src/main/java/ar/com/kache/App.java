@@ -13,6 +13,8 @@ import java.net.URL;
 
 import ar.com.kache.config.AppConfiguration;
 import ar.com.kache.config.ConfigFeed;
+import ar.com.kache.filters.FilterStrategyManager;
+import ar.com.kache.filters.IFilterStrategy;
 import ar.com.kache.history.FileHistory;
 import ar.com.kache.history.IHistory;
 import ar.com.kache.utils.FileUtils;
@@ -51,13 +53,13 @@ public class App {
 	}
 	
 	private void process(ConfigFeed configFeed, FeedItem feedItem) {
-		System.out.println("===================================='" + feedItem.getTitle() + "'");
-		if (!configFeed.accept(feedItem)) {
-			System.err.println("Feed '" + feedItem.getTitle() + "' was rejected");
+		IFilterStrategy filterStrategy = FilterStrategyManager.getInstance().getFilterFor(configFeed.getFilterStrategy());
+		if (!filterStrategy.accept(configFeed, feedItem)) {
+			System.out.println("\n========Feed '" + feedItem.getTitle() + "' was rejected");
 			return;
 		} 
 
-		System.out.println("Feed '" + feedItem.getTitle() + "' was accepted");
+		System.out.println("\n========Feed '" + feedItem.getTitle() + "' was accepted");
 		URL url = getURL(feedItem);
 		
 		String fileName = url.getFile();
@@ -73,7 +75,7 @@ public class App {
 		try {
 			int code = FileUtils.getResponseCode(url);
 			if (code != 200) {
-				System.err.println("URL " + url.toString() + " return " + code + " code.");
+				System.out.println("URL " + url.toString() + " return " + code + " code.");
 				return;
 			}
 		} catch (Exception e) {
@@ -94,12 +96,10 @@ public class App {
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("Checking " + hash);
 		if (history.exists(hash)) {
 			System.out.println("File already exists");
 			return;
 		}
-		System.out.println("New File found!");
 		
 		File watchdirTorrent = new File(appConfiguration.getConfiguration().getWatchDir(), tempTorrent.getName());
 		try {

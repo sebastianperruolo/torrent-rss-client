@@ -1,11 +1,13 @@
 package ar.com.kache;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ar.com.kache.config.AppConfiguration;
 import ar.com.kache.config.ConfigFeed;
 import ar.com.kache.config.Configuration;
+import ar.com.kache.filters.BlackListFilterStrategy;
 
 
 public class Main {
@@ -33,6 +35,8 @@ public class Main {
     			ConfigFeed configFeed = new ConfigFeed();
     			configFeed.setTitle("a feed title");
     			configFeed.setUrl("a feed url");
+    			configFeed.setFilterStrategy(BlackListFilterStrategy.CODE);
+    			configFeed.setFilters(Arrays.asList("The.Walking.Dead", "Two.and.a.Half.Men", "The.Good.Wife"));
     			configFeeds.add(configFeed);
     			
     			ConfigFeed configFeed2 = new ConfigFeed();
@@ -43,8 +47,10 @@ public class Main {
     			example.setConfigFeeds(configFeeds);
     			
     			AppConfiguration.saveConfiguration(example, AppConfiguration.configFile);
+    			System.out.println("Created fake configuration file");
+    		} else {
+    			System.out.println("Configuration file already exists");
     		}
-    		System.out.println("Created fake configuration file");
     		System.exit(0);
     	}
     	
