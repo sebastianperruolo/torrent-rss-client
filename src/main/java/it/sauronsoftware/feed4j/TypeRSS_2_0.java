@@ -153,11 +153,13 @@ class TypeRSS_2_0 extends TypeAbstract {
 								;
 							}
 						} else if (ename.equals("description")) {
-							evalue = HTMLOptimizer.optimize(evalue);
-							if (evalue.length() > 0) {
-								item.setDescriptionAsHTML(evalue);
+							String optimized = HTMLOptimizer.optimize(evalue);
+							if ((optimized != null)&&(!optimized.equals(""))) {
+								item.setDescriptionAsHTML(optimized);
 								item.setDescriptionAsText(HTMLFragmentHelper
-										.fromHTMLtoTextPlain(evalue));
+										.fromHTMLtoTextPlain(optimized));
+							} else {
+								item.setDescriptionAsText(evalue);
 							}
 						} else if (ename.equals("comments")) {
 							try {
