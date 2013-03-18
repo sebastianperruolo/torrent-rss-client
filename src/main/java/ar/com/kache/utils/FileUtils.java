@@ -1,6 +1,5 @@
 package ar.com.kache.utils;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,8 +14,6 @@ import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPInputStream;
-
-import org.xml.sax.InputSource;
 
 public class FileUtils {
 	private FileUtils() {

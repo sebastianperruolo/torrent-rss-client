@@ -1,5 +1,7 @@
 package ar.com.kache;
 
+import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,7 @@ import ar.com.kache.config.AppConfiguration;
 import ar.com.kache.config.ConfigFeed;
 import ar.com.kache.config.Configuration;
 import ar.com.kache.filters.BlackListFilterStrategy;
+import ar.com.kache.utils.MyOutput;
 
 
 public class Main {
@@ -54,9 +57,18 @@ public class Main {
     		System.exit(0);
     	}
     	
+    	
     	AppConfiguration appConfiguration = new AppConfiguration();
+    	try {
+    		File outputFile = new File(AppConfiguration.appLog, "output.log");
+    		MyOutput output = new MyOutput(System.out, new PrintStream(outputFile));
+    		System.setOut(output);
+    		System.setErr(output);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     	App app = new App(appConfiguration);
     	app.execute();
     }
-
+    
 }
