@@ -10,9 +10,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.zip.GZIPInputStream;
+
+import org.xml.sax.InputSource;
 
 public class FileUtils {
 	private FileUtils() {
@@ -29,22 +33,28 @@ public class FileUtils {
 	
 	public static void download(URL url, File target) throws IOException {
 		System.out.println("Downloading " + url.toString() + " to " + target.getAbsolutePath());
-		BufferedInputStream in = null;
+		InputStream stream = null;
     	FileOutputStream fout = null;
-    	try {
-    		in = new BufferedInputStream(url.openStream());
-    		fout = new FileOutputStream(target);
 
-    		byte data[] = new byte[1024];
-    		int count;
-    		while ((count = in.read(data, 0, 1024)) != -1) {
-    			fout.write(data, 0, count);
-    		}
-    	} catch (IOException e) {
+		try {
+			URLConnection connection = url.openConnection();
+			stream = connection.getInputStream();
+			if ("gzip".equals(connection.getContentEncoding())) {
+				stream = new GZIPInputStream(stream);
+			}
+
+			fout = new FileOutputStream(target);
+
+			byte data[] = new byte[1024];
+			int count;
+			while ((count = stream.read(data, 0, 1024)) != -1) {
+				fout.write(data, 0, count);
+			}
+		} catch (IOException e) {
     		throw e;
     	} finally {
-    		if (in != null) {
-    			in.close();
+    		if (stream != null) {
+    			stream.close();
     		}
     		if (fout != null) {
     			fout.close();

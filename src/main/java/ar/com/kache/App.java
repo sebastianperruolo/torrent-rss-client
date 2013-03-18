@@ -8,7 +8,8 @@ import it.sauronsoftware.feed4j.bean.Feed;
 import it.sauronsoftware.feed4j.bean.FeedItem;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 
 import ar.com.kache.config.AppConfiguration;
@@ -43,9 +44,12 @@ public class App {
 		}
 	}
 	
-	private void process(ConfigFeed configFeed) throws FeedIOException, FeedXMLParseException, UnsupportedFeedException, MalformedURLException {
+	private void process(ConfigFeed configFeed) throws FeedIOException, FeedXMLParseException, UnsupportedFeedException, IOException {
 		URL url = new URL(configFeed.getUrl());
-		Feed feed = FeedParser.parse(url);
+		File feedFile = new File(AppConfiguration.appLog, configFeed.getTitle() + ".xml");
+		
+		FileUtils.download(url, feedFile);
+		Feed feed = FeedParser.parse(url, new FileInputStream(feedFile));
 		
 		for (FeedItem feedItem : feed.getItems()) {
 			process(configFeed, feedItem);

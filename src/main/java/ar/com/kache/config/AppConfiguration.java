@@ -1,6 +1,8 @@
 package ar.com.kache.config;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,6 +17,9 @@ public class AppConfiguration {
 	public static File appHome = new File(userHome, ".torrentrss");
 	public static File appTemp = new File(appHome, "temp");
 	public static File configFile = new File(appHome, "config.xml");
+	
+	private static final String NOW = new SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date());
+	public static File appLog = new File(appHome, "log/"+NOW);
 	
 	public AppConfiguration() {
 		if (!userHome.isDirectory()) {
@@ -40,6 +45,7 @@ public class AppConfiguration {
         }
 		
 		appTemp.mkdirs();
+		appLog.mkdirs();
 	}
 	
 	public static void saveConfiguration(Configuration c, File file) {
