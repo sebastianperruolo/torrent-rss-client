@@ -2,6 +2,7 @@ package it.sauronsoftware.feed4j;
 
 import it.sauronsoftware.feed4j.bean.Feed;
 
+import java.io.InputStream;
 import java.net.URL;
 
 import org.dom4j.Document;
@@ -29,12 +30,13 @@ public class FeedParser {
 	 *             The XML retrieved does not represents a feed whose kind is
 	 *             known by the parser.
 	 */
-	public static Feed parse(URL url) throws FeedIOException,
+	public static Feed parse(URL url, InputStream stream) throws FeedIOException,
 			FeedXMLParseException, UnsupportedFeedException {
 		try {
 			// Esegue il parsing iniziale del documento XML.
-			SAXReader saxReader = new SAXReader();
-			Document document = saxReader.read(url);
+			SAXReader saxReader = new SAXReader(false);
+//			saxReader.setFeature("http://xml.org/sax/features/namespaces", false);
+			Document document = saxReader.read(stream);
 			// Cerca il modulo di interpretazione del feed.
 			int code = FeedRecognizer.recognizeFeed(document);
 			switch (code) {
@@ -51,7 +53,9 @@ public class FeedParser {
 			}
 		} catch (DocumentException e) {
 			throw new FeedXMLParseException(e);
+		} catch (Exception e) {
+			throw new FeedXMLParseException(e);
 		}
 	}
-
+	
 }
