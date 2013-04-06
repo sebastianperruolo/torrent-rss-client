@@ -1,13 +1,13 @@
 package it.sauronsoftware.feed4j;
 
 import it.sauronsoftware.feed4j.bean.Feed;
+import it.sauronsoftware.feed4j.utils.XMLParseUtils;
 
 import java.io.InputStream;
 import java.net.URL;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
 
 /**
  * The feed parser. It can parse RSS 1.0, RSS 2.0, Atom 0.3 and Atom 1.0.
@@ -33,10 +33,7 @@ public class FeedParser {
 	public static Feed parse(URL url, InputStream stream) throws FeedIOException,
 			FeedXMLParseException, UnsupportedFeedException {
 		try {
-			// Esegue il parsing iniziale del documento XML.
-			SAXReader saxReader = new SAXReader(false);
-//			saxReader.setFeature("http://xml.org/sax/features/namespaces", false);
-			Document document = saxReader.read(stream);
+			Document document = XMLParseUtils.read(stream);
 			// Cerca il modulo di interpretazione del feed.
 			int code = FeedRecognizer.recognizeFeed(document);
 			switch (code) {
@@ -57,5 +54,4 @@ public class FeedParser {
 			throw new FeedXMLParseException(e);
 		}
 	}
-	
 }

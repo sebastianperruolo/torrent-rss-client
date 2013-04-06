@@ -65,12 +65,15 @@ public class App {
 
 		System.out.println("\n========Feed '" + feedItem.getTitle() + "' was accepted");
 		URL url = getURL(feedItem);
-		
-		String fileName = url.getFile();
-		if ((fileName == null) || (fileName.trim().equals(""))) {
-			fileName = feedItem.getTitle() + ".torrent";
+		try {
+			url = new URL("http", url.getHost(), url.getPort(), url.getFile());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
-		File tempTorrent = new File(AppConfiguration.appTemp, new File(url.getPath()).getName());
+		String fileName = feedItem.getTitle() + ".torrent";
+		
+		File tempTorrent = new File(AppConfiguration.appTemp, fileName);
 		
 		if (tempTorrent.isFile()) {
 			System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' already exists");
@@ -84,7 +87,7 @@ public class App {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return;
+			//return;
 		}
 		
 		try {

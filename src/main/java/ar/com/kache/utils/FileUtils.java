@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPInputStream;
 
 public class FileUtils {
+	
 	private FileUtils() {
 		
 	}
@@ -27,11 +28,12 @@ public class FileUtils {
 	    huc.connect();
 	    return huc.getResponseCode();
 	}
-	
+
 	public static void download(URL url, File target) throws IOException {
-		System.out.println("Downloading " + url.toString() + " to " + target.getAbsolutePath());
+		System.out.println("Downloading " + url.toString() + "\n\tto "
+				+ target.getAbsolutePath());
 		InputStream stream = null;
-    	FileOutputStream fout = null;
+		FileOutputStream fout = null;
 
 		try {
 			URLConnection connection = url.openConnection();
@@ -48,43 +50,51 @@ public class FileUtils {
 				fout.write(data, 0, count);
 			}
 		} catch (IOException e) {
-    		throw e;
-    	} finally {
-    		if (stream != null) {
-    			stream.close();
-    		}
-    		if (fout != null) {
-    			fout.close();
-    		}
-    	}
+			throw e;
+		} finally {
+			if (stream != null) {
+				stream.close();
+			}
+			if (fout != null) {
+				fout.close();
+			}
+		}
 
 	}
 
-	public static String hash(File torrent) throws IOException, NoSuchAlgorithmException {
+	public static String hash(File torrent) throws IOException,
+			NoSuchAlgorithmException {
 		byte[] bytes = torrentHash(torrent);
 		StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-          sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-         
-        return sb.toString();
+		for (int i = 0; i < bytes.length; i++) {
+			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
+					.substring(1));
+		}
+
+		return sb.toString();
 	}
-	
-	private static byte[] torrentHash(File file) throws IOException, NoSuchAlgorithmException {
+
+	private static byte[] torrentHash(File file) throws IOException,
+			NoSuchAlgorithmException {
 		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 		InputStream input = null;
 
 		try {
-		    input = new FileInputStream(file);
-		    StringBuilder builder = new StringBuilder();
-		    while (!builder.toString().endsWith("4:info")) {
-		        builder.append((char) input.read()); // It's ASCII anyway.
-		    }
-		    ByteArrayOutputStream output = new ByteArrayOutputStream();
-		    for (int data; (data = input.read()) > -1; output.write(data));
-		    sha1.update(output.toByteArray(), 0, output.size() - 1);
+			input = new FileInputStream(file);
+			StringBuilder builder = new StringBuilder();
+			while (!builder.toString().endsWith("4:info")) {
+				builder.append((char) input.read()); // It's ASCII anyway.
+			}
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			for (int data; (data = input.read()) > -1; output.write(data))
+				;
+			sha1.update(output.toByteArray(), 0, output.size() - 1);
 		} finally {
-		    if (input != null) try { input.close(); } catch (IOException ignore) {}
+			if (input != null)
+				try {
+					input.close();
+				} catch (IOException ignore) {
+				}
 		}
 
 		return sha1.digest(); // Here's your hash. Do your thing with it.
@@ -111,5 +121,5 @@ public class FileUtils {
 			}
 		}
 	}
-	
+
 }
