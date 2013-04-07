@@ -10,53 +10,84 @@ import ar.com.kache.config.AppConfiguration;
 import ar.com.kache.config.ConfigFeed;
 import ar.com.kache.config.Configuration;
 import ar.com.kache.filters.BlackListFilterStrategy;
+import ar.com.kache.filters.WhiteListFilterStrategy;
 import ar.com.kache.utils.MyOutput;
 
 
 public class Main {
 	
+	private static void install() {
+		if (!AppConfiguration.appHome.isDirectory()) {
+			AppConfiguration.appHome.mkdirs();
+		}
+		if (AppConfiguration.configFile.isFile()) {
+			System.out.println("Configuration file already exists");
+			System.exit(-1);
+		}
+			
+		Configuration example = new Configuration();
+		File watchDir = new File(AppConfiguration.appHome, "your_torrent_watchfolder");
+		watchDir.mkdirs();
+		example.setWatchDir(watchDir.getAbsolutePath());
+		List<ConfigFeed> configFeeds = new ArrayList<ConfigFeed>();
+		
+		ConfigFeed configFeed1 = new ConfigFeed();
+		configFeed1.setTitle("YIFY 720p +8");
+		configFeed1.setUrl("http://yify-torrents.com/rss/0/720p/All/8");
+		configFeeds.add(configFeed1);
+		
+		ConfigFeed configFeed2 = new ConfigFeed();
+		configFeed2.setTitle("KickAssTorrent TV Shows");
+		configFeed2.setUrl("http://kat.ph/tv/?rss=1");
+		//just a whitelist example
+		configFeed2.setFilterStrategy(WhiteListFilterStrategy.CODE);
+		configFeed2.setFilters(Arrays.asList("The Simpsons"));
+		configFeeds.add(configFeed2);
+		
+		ConfigFeed configFeed3 = new ConfigFeed();
+		configFeed3.setTitle("aRGENTeaM");
+		configFeed3
+				.setUrl("http://www.argenteam.net/rss/tvseries_torrents_hr.xml");
+		// just a blacklist example
+		configFeed3.setFilterStrategy(BlackListFilterStrategy.CODE);
+		configFeed3.setFilters(Arrays.asList("ParkAvenue",
+				"AmericanHorrorStory", "AngerManagement", "Arrow",
+				"BatesMotel", "BeautyAndTheBeastXII", "Bedlam", "BeingHuman",
+				"BlackMirror", "Bones", "BronBroen", "Californication",
+				"Continuum", "Copper", "CriminalMinds", "CurbYourEnthusiasm",
+				"Defiance", "DoctorWho", "FallingSkies", "FamilyGuy", "Grimm",
+				"Haven", "HellonWheels", "Homeland", "HouseOfLies",
+				"InTheFlesh", "LastResort", "MagicCity", "MajorCrimes",
+				"Merlin", "Miranda", "Misfits", "ModernFamily", "NewGirl",
+				"Nikita", "NurseJackie", "OnceUponATime", "Perception",
+				"PersonOfInterest", "Revolution", "RipperStreet", "Sherlock",
+				"Southland", "TheCloneWars", "Supernatural", "TheAmericans",
+				"TheFollowing", "TheGoodWife", "TheKilling",
+				"TheLastAirbenderTheLegendOfKorra", "TheMentalist",
+				"TheVampireDiaries", "TheWalkingDead", "ThunderCatsMMXI",
+				"Touch", "Transporter", "TrueBlood", "TwoAndAHalfMen",
+				"Vikings", "WarehouseThirdteen", "Wilfred", "XIIITheSeries",
+				"ZeroHour"));
+		configFeeds.add(configFeed3);
+		
+		example.setConfigFeeds(configFeeds);
+		
+		AppConfiguration.saveConfiguration(example, AppConfiguration.configFile);
+		System.out.println("Created example configuration file :D");
+		System.out.println("Customize it, edit " + AppConfiguration.configFile.getAbsolutePath());
+		System.exit(0);
+	}
+	
     /**
      * @param args
      */
     public static void main(String[] args) {
-    	boolean install = false;
+    	
     	if (args.length > 0) {
     		if ("install".equals(args[0])) {
-    			install = true;
+    			install();
     		}
     	}
-    	
-    	if (install) {
-    		if (!AppConfiguration.appHome.isDirectory()) {
-				AppConfiguration.appHome.mkdirs();
-			}
-    		if (!AppConfiguration.configFile.isFile()) {
-    			Configuration example = new Configuration();
-    			example.setWatchDir("Absolute watch dir path");
-    			List<ConfigFeed> configFeeds = new ArrayList<ConfigFeed>();
-    			
-    			ConfigFeed configFeed = new ConfigFeed();
-    			configFeed.setTitle("a feed title");
-    			configFeed.setUrl("a feed url");
-    			configFeed.setFilterStrategy(BlackListFilterStrategy.CODE);
-    			configFeed.setFilters(Arrays.asList("The.Walking.Dead", "Two.and.a.Half.Men", "The.Good.Wife"));
-    			configFeeds.add(configFeed);
-    			
-    			ConfigFeed configFeed2 = new ConfigFeed();
-    			configFeed2.setTitle("a second feed title");
-    			configFeed2.setUrl("a second feed url");
-    			configFeeds.add(configFeed2);
-    			
-    			example.setConfigFeeds(configFeeds);
-    			
-    			AppConfiguration.saveConfiguration(example, AppConfiguration.configFile);
-    			System.out.println("Created fake configuration file");
-    		} else {
-    			System.out.println("Configuration file already exists");
-    		}
-    		System.exit(0);
-    	}
-    	
     	
     	AppConfiguration appConfiguration = new AppConfiguration();
     	try {
@@ -67,6 +98,7 @@ public class Main {
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
+    	
     	App app = new App(appConfiguration);
     	app.execute();
     }

@@ -15,10 +15,13 @@ public class FilterStrategyManager {
 	}
 	
 	private Map<String, IFilterStrategy> filters;
+	
 	private IFilterStrategy defaultFilter;
+	
 	private FilterStrategyManager() {
 		filters = new HashMap<String, IFilterStrategy>();
 		filters.put(BlackListFilterStrategy.CODE, new BlackListFilterStrategy());
+		filters.put(WhiteListFilterStrategy.CODE, new WhiteListFilterStrategy());
 		defaultFilter = new NullFilterStrategy();
 	}
 
