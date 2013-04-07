@@ -74,6 +74,7 @@ public class Main {
 		
 		AppConfiguration.saveConfiguration(example, AppConfiguration.configFile);
 		System.out.println("Created example configuration file :D");
+		System.out.println("Torrents  " + watchDir.getAbsolutePath());
 		System.out.println("Customize it, edit " + AppConfiguration.configFile.getAbsolutePath());
 		System.exit(0);
 	}
@@ -97,6 +98,11 @@ public class Main {
     		System.setErr(output);
     	} catch (Exception e) {
     		e.printStackTrace();
+    	}
+    	File watchDir = new File(appConfiguration.getConfiguration().getWatchDir());
+    	if (!watchDir.isDirectory()) {
+    		System.err.println("Watch folder does not exists '" + watchDir.getAbsolutePath() + "'");
+    		System.exit(-1);
     	}
     	
     	App app = new App(appConfiguration);
