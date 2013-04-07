@@ -52,6 +52,7 @@ public class AppConfiguration {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Configuration.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(c, file);
         } catch (JAXBException e) {
         	throw new ConfigurationException("Error save config file " + configFile.getAbsolutePath(), e);
