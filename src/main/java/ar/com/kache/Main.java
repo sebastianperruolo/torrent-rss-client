@@ -74,7 +74,7 @@ public class Main {
 		
 		AppConfiguration.saveConfiguration(example, AppConfiguration.configFile);
 		System.out.println("Created example configuration file :D");
-		System.out.println("Torrents  " + watchDir.getAbsolutePath());
+		System.out.println("Torrents watch-folder: " + watchDir.getAbsolutePath());
 		System.out.println("Customize it, edit " + AppConfiguration.configFile.getAbsolutePath());
 		System.exit(0);
 	}
