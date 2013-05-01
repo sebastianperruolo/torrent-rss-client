@@ -12,7 +12,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPInputStream;
 
 public class FileUtils {
@@ -62,9 +61,11 @@ public class FileUtils {
 
 	}
 
-	public static String hash(File torrent) throws IOException,
-			NoSuchAlgorithmException {
+	public static String hash(File torrent) {
 		byte[] bytes = torrentHash(torrent);
+		if (bytes == null) {
+			return null;
+		}
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < bytes.length; i++) {
 			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
@@ -74,12 +75,11 @@ public class FileUtils {
 		return sb.toString();
 	}
 
-	private static byte[] torrentHash(File file) throws IOException,
-			NoSuchAlgorithmException {
-		MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+	private static byte[] torrentHash(File file) {
 		InputStream input = null;
 
 		try {
+			MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 			input = new FileInputStream(file);
 			StringBuilder builder = new StringBuilder();
 			while (!builder.toString().endsWith("4:info")) {
@@ -89,15 +89,20 @@ public class FileUtils {
 			for (int data; (data = input.read()) > -1; output.write(data))
 				;
 			sha1.update(output.toByteArray(), 0, output.size() - 1);
+			return sha1.digest(); // Here's your hash. Do your thing with it.
+		} catch (Exception e) {
+			System.out.println("Failed to get hash from file "
+					+ file.getAbsolutePath());
+			e.printStackTrace();
+			return null;
 		} finally {
-			if (input != null)
+			if (input != null) {
 				try {
 					input.close();
 				} catch (IOException ignore) {
 				}
+			}
 		}
-
-		return sha1.digest(); // Here's your hash. Do your thing with it.
 	}
 
 	public static void copyFile(File sourceFile, File destFile)

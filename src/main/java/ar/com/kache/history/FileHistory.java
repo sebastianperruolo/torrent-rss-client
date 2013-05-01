@@ -18,6 +18,9 @@ public class FileHistory implements IHistory {
 		if (!history.isFile()) {
 			return false;
 		}
+		if (hash == null) {
+			return false;
+		}
 		Scanner scanner;
 		try {
 			scanner = new Scanner(history);

@@ -96,13 +96,13 @@ public class App {
 			e.printStackTrace();
 			return;
 		}
-		String hash = null;
-		try {
-			hash = FileUtils.hash(tempTorrent);
-		} catch (Exception e) {
-			e.printStackTrace();
+		String hash = FileUtils.hash(tempTorrent);
+		
+		if (hash == null) {
+			System.out.println("Can't get hash for file '" + tempTorrent.getAbsolutePath() + "'. Is it a torrent file?");
 			return;
 		}
+
 		if (history.exists(hash)) {
 			System.out.println("File already exists");
 			return;
