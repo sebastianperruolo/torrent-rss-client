@@ -147,11 +147,7 @@ class TypeRSS_2_0 extends TypeAbstract {
 						if (ename.equals("title")) {
 							item.setTitle(evalue);
 						} else if (ename.equals("link")) {
-							try {
-								item.setLink(new URL(evalue));
-							} catch (MalformedURLException e) {
-								;
-							}
+							item.setLink(evalue);
 						} else if (ename.equals("description")) {
 							String optimized = HTMLOptimizer.optimize(evalue);
 							if ((optimized != null)&&(!optimized.equals(""))) {
@@ -170,13 +166,8 @@ class TypeRSS_2_0 extends TypeAbstract {
 						} else if (ename.equals("guid")) {
 							String isPermaLink = element.getAttributeValue(
 									ensuri, "isPermaLink");
-							if (isPermaLink != null
-									&& isPermaLink.equals("true")) {
-								try {
-									item.setLink(new URL(evalue));
-								} catch (MalformedURLException e) {
-									;
-								}
+							if (isPermaLink != null && isPermaLink.equals("true")) {
+								item.setLink(evalue);
 							}
 							item.setGUID(evalue);
 						}
@@ -199,7 +190,7 @@ class TypeRSS_2_0 extends TypeAbstract {
 		// A GUID for the item.
 		String rssGuid = item.getGUID();
 		if (rssGuid == null) {
-			rssGuid = item.getLink().toExternalForm();
+			rssGuid = item.getLink();
 		}
 		item.setGUID(buildGUID(source.hashCode(), rssGuid.hashCode()));
 		// Remove every "enclosure" element from the raw ones, since they have

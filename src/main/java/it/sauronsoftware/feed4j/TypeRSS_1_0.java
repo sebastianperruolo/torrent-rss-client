@@ -44,7 +44,7 @@ class TypeRSS_1_0 extends TypeAbstract {
 		header.setURL(source);
 		// Search for the "channel" and the "item" elements.
 		Element channel = null;
-		for (Iterator i = root.elementIterator(); i.hasNext();) {
+		for (Iterator<?> i = root.elementIterator(); i.hasNext();) {
 			Element aux = (Element) i.next();
 			String nsuri = aux.getNamespaceURI();
 			if (nsuri.equals(Constants.RSS_1_0_NS_URI)) {
@@ -150,11 +150,7 @@ class TypeRSS_1_0 extends TypeAbstract {
 						if (ename.equals("title")) {
 							item.setTitle(evalue);
 						} else if (ename.equals("link")) {
-							try {
-								item.setLink(new URL(evalue));
-							} catch (MalformedURLException e) {
-								;
-							}
+							item.setLink(evalue);
 						} else if (ename.equals("description")) {
 							item.setDescriptionAsText(evalue);
 							item.setDescriptionAsHTML(HTMLFragmentHelper
@@ -183,7 +179,7 @@ class TypeRSS_1_0 extends TypeAbstract {
 		}
 		// GUID for the item.
 		if (rssGuid == null) {
-			rssGuid = item.getLink().toExternalForm();
+			rssGuid = item.getLink();
 		}
 		item.setGUID(buildGUID(source.hashCode(), rssGuid.hashCode()));
 		// Well done!

@@ -10,6 +10,7 @@ import it.sauronsoftware.feed4j.bean.FeedItem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import ar.com.kache.config.AppConfiguration;
@@ -65,6 +66,10 @@ public class App {
 
 		System.out.println("\n========Feed '" + feedItem.getTitle() + "' was accepted");
 		URL url = getURL(feedItem);
+		if (url == null) {
+			System.out.println("Can't build URL from '" + feedItem.getLink() + "'");
+			return;
+		}
 		try {
 			url = new URL("http", url.getHost(), url.getPort(), url.getFile());
 		} catch (Exception e) {
@@ -124,6 +129,15 @@ public class App {
 		if (feedItem.getEnclosureCount() > 0) {
 			return feedItem.getEnclosure(0).getURL();
 		}
-		return feedItem.getLink();
+		String link = feedItem.getLink();
+		if (link == null) {
+			return null;
+		}
+		try {
+			return new URL(link);
+		} catch (MalformedURLException e) {
+			
+		}
+		return null;
 	}
 }
