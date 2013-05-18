@@ -29,6 +29,7 @@ public class Main {
 		File watchDir = new File(AppConfiguration.appHome, "your_torrent_watchfolder");
 		watchDir.mkdirs();
 		example.setWatchDir(watchDir.getAbsolutePath());
+		example.setMagnetLinkCommand("/usr/bin/transmission-remote --add \"%s\"");
 		List<ConfigFeed> configFeeds = new ArrayList<ConfigFeed>();
 		
 		ConfigFeed configFeed1 = new ConfigFeed();
@@ -69,6 +70,11 @@ public class Main {
 				"Vikings", "WarehouseThirdteen", "Wilfred", "XIIITheSeries",
 				"ZeroHour"));
 		configFeeds.add(configFeed3);
+		
+		ConfigFeed configFeed4 = new ConfigFeed();
+		configFeed4.setTitle("TestMagnetLink");
+		configFeed4.setUrl("http://dl.dropboxusercontent.com/u/6278479/testMagnetLink.rss");
+		configFeeds.add(configFeed4);
 		
 		example.setConfigFeeds(configFeeds);
 		
