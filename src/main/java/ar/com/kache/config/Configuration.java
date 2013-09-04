@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Configuration {
 	
 	private String watchDir;
+	private String magnetLinkCommand;
 	
 	@XmlElementWrapper(name="feeds")
 	@XmlElement(name="feed")
@@ -32,6 +33,17 @@ public class Configuration {
 
 	public void setWatchDir(String watchDir) {
 		this.watchDir = watchDir;
+	}
+
+	public String getMagnetLinkCommand() {
+		return magnetLinkCommand;
+	}
+
+	/**
+	 * @param magnetLinkCommand the magnetLinkCommand to set
+	 */
+	public void setMagnetLinkCommand(String magnetLinkCommand) {
+		this.magnetLinkCommand = magnetLinkCommand;
 	}
 
 }

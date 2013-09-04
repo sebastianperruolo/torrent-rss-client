@@ -26,7 +26,7 @@ public class FeedItem extends RawElement {
 	/**
 	 * The item link.
 	 */
-	private URL link = null;
+	private String link = null;
 
 	/**
 	 * The URL for the comments to the item.
@@ -103,7 +103,7 @@ public class FeedItem extends RawElement {
 	 * 
 	 * @return The item link.
 	 */
-	public URL getLink() {
+	public String getLink() {
 		return link;
 	}
 
@@ -113,7 +113,7 @@ public class FeedItem extends RawElement {
 	 * @param link
 	 *            The item link.
 	 */
-	public void setLink(URL link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
 

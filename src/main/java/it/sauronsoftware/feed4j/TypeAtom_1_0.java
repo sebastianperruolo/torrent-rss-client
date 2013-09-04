@@ -141,7 +141,7 @@ class TypeAtom_1_0 extends TypeAbstract {
 							item.setTitle(title);
 						}
 					} else if (ename.equals("link")) {
-						URL link = handleLink(element);
+						String link = handleLinkValue(element);
 						if (link != null) {
 							item.setLink(link);
 						} else {
@@ -210,7 +210,7 @@ class TypeAtom_1_0 extends TypeAbstract {
 		}
 		// GUID generation.
 		if (id == null) {
-			id = item.getLink().toExternalForm();
+			id = item.getLink();
 		}
 		item.setGUID(buildGUID(source.hashCode(), id.hashCode()));
 		// Well done!
@@ -220,7 +220,7 @@ class TypeAtom_1_0 extends TypeAbstract {
 	/**
 	 * Atom link analyzer.
 	 */
-	private static URL handleLink(RawElement linkElement) {
+	private static String handleLinkValue(RawElement linkElement) {
 		String nsuri = linkElement.getNamespaceURI();
 		// 1. Attribute rel="alternate" required.
 		String rel = linkElement.getAttributeValue(nsuri, "rel");
@@ -232,14 +232,15 @@ class TypeAtom_1_0 extends TypeAbstract {
 		if (href == null || href.length() == 0) {
 			return null;
 		}
-		// 3. Valid URL?.
-		try {
-			return new URL(href);
-		} catch (MalformedURLException e) {
-			return null;
-		}
+		// 3. Valid URL?. Do not know yet
+		return href;
 	}
 
+	private static URL handleLink(RawElement linkElement) {
+		String link = handleLinkValue(linkElement);
+		return 	buildURL(link);
+	}
+	
 	/**
 	 * Atom attachments analyzer.
 	 */
