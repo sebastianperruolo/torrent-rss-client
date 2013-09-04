@@ -4,6 +4,8 @@ import it.sauronsoftware.feed4j.bean.RawAttribute;
 import it.sauronsoftware.feed4j.bean.RawElement;
 import it.sauronsoftware.feed4j.bean.RawText;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Iterator;
 
 import org.dom4j.Attribute;
@@ -53,7 +55,7 @@ class TypeAbstract {
 		re.setNamespaceURI(ensuri);
 		re.setName(e.getName());
 		// Attributes.
-		for (Iterator i = e.attributeIterator(); i.hasNext();) {
+		for (Iterator<?> i = e.attributeIterator(); i.hasNext();) {
 			Attribute attr = (Attribute) i.next();
 			RawAttribute rawAttribute = new RawAttribute();
 			String attrnsuri = attr.getNamespaceURI();
@@ -77,7 +79,7 @@ class TypeAbstract {
 			}
 		}
 		// Child elements.
-		for (Iterator i = e.nodeIterator(); i.hasNext();) {
+		for (Iterator<?> i = e.nodeIterator(); i.hasNext();) {
 			Node current = (Node) i.next();
 			if (current instanceof Text) {
 				Text text = (Text) current;
@@ -166,4 +168,15 @@ class TypeAbstract {
 		return toHexGUIDRapp(a) + toHexGUIDRapp(b);
 	}
 
+	protected static URL buildURL(String link) {
+		if (link == null) {
+			return null;
+		}
+		try {
+			return new URL(link);
+		} catch (MalformedURLException e) {
+			
+		}
+		return null;
+	}
 }

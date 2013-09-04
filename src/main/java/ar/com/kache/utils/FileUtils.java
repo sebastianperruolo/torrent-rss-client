@@ -12,6 +12,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 public class FileUtils {
@@ -60,7 +62,15 @@ public class FileUtils {
 		}
 
 	}
-
+	
+	public static String hash(String magnetLink) {
+		Pattern pattern = Pattern.compile("(?<=\\bbtih\\b).*?(?=\\bdn=\\b)");
+		Matcher matcher = pattern.matcher(magnetLink);
+		if (matcher.find()) {
+			return magnetLink.substring(matcher.start() + 1, matcher.end()-1);
+		}
+		return null;
+	}
 	public static String hash(File torrent) {
 		byte[] bytes = torrentHash(torrent);
 		if (bytes == null) {
