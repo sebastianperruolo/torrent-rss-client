@@ -10,6 +10,7 @@ import ar.com.kache.config.AppConfiguration;
 import ar.com.kache.config.ConfigFeed;
 import ar.com.kache.config.Configuration;
 import ar.com.kache.filters.BlackListFilterStrategy;
+import ar.com.kache.filters.RegExFilterStrategy;
 import ar.com.kache.filters.WhiteListFilterStrategy;
 import ar.com.kache.utils.MyOutput;
 
@@ -35,40 +36,26 @@ public class Main {
 		ConfigFeed configFeed1 = new ConfigFeed();
 		configFeed1.setTitle("YIFY 720p +8");
 		configFeed1.setUrl("http://yify-torrents.com/rss/0/720p/All/8");
+		//just a blacklist example
+		configFeed1.setFilterStrategy(BlackListFilterStrategy.CODE);
+		configFeed1.setFilters(Arrays.asList("Star Trek")); //no Star Trek please
 		configFeeds.add(configFeed1);
 		
 		ConfigFeed configFeed2 = new ConfigFeed();
 		configFeed2.setTitle("KickAssTorrent TV Shows");
 		configFeed2.setUrl("http://kat.ph/tv/?rss=1");
-		//just a whitelist example
-		configFeed2.setFilterStrategy(WhiteListFilterStrategy.CODE);
-		configFeed2.setFilters(Arrays.asList("The Simpsons"));
+		//just a regex example
+		configFeed2.setFilterStrategy(RegExFilterStrategy.CODE);
+		configFeed2.setFilters(Arrays.asList("(.+)S01E01(.+)HDTV(.+)")); //any new show in HD
 		configFeeds.add(configFeed2);
 		
 		ConfigFeed configFeed3 = new ConfigFeed();
 		configFeed3.setTitle("aRGENTeaM");
 		configFeed3
 				.setUrl("http://www.argenteam.net/rss/tvseries_torrents_hr.xml");
-		// just a blacklist example
-		configFeed3.setFilterStrategy(BlackListFilterStrategy.CODE);
-		configFeed3.setFilters(Arrays.asList("ParkAvenue",
-				"AmericanHorrorStory", "AngerManagement", "Arrow",
-				"BatesMotel", "BeautyAndTheBeastXII", "Bedlam", "BeingHuman",
-				"BlackMirror", "Bones", "BronBroen", "Californication",
-				"Continuum", "Copper", "CriminalMinds", "CurbYourEnthusiasm",
-				"Defiance", "DoctorWho", "FallingSkies", "FamilyGuy", "Grimm",
-				"Haven", "HellonWheels", "Homeland", "HouseOfLies",
-				"InTheFlesh", "LastResort", "MagicCity", "MajorCrimes",
-				"Merlin", "Miranda", "Misfits", "ModernFamily", "NewGirl",
-				"Nikita", "NurseJackie", "OnceUponATime", "Perception",
-				"PersonOfInterest", "Revolution", "RipperStreet", "Sherlock",
-				"Southland", "TheCloneWars", "Supernatural", "TheAmericans",
-				"TheFollowing", "TheGoodWife", "TheKilling",
-				"TheLastAirbenderTheLegendOfKorra", "TheMentalist",
-				"TheVampireDiaries", "TheWalkingDead", "ThunderCatsMMXI",
-				"Touch", "Transporter", "TrueBlood", "TwoAndAHalfMen",
-				"Vikings", "WarehouseThirdteen", "Wilfred", "XIIITheSeries",
-				"ZeroHour"));
+		// just a whitelist example
+		configFeed3.setFilterStrategy(WhiteListFilterStrategy.CODE);
+		configFeed3.setFilters(Arrays.asList("BoardwalkEmpire", "GameOfThrones", "HouseOfCards", "HowIMetYourMother", "MadMen", "BigBangTheory"));
 		configFeeds.add(configFeed3);
 		
 		ConfigFeed configFeed4 = new ConfigFeed();
