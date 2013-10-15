@@ -4,7 +4,7 @@
 
 	<groupId>ar.com.kache</groupId>
 	<artifactId>torrent-rss-client</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>jar</packaging>
 
 	<name>torrent-rss-client</name>
