@@ -1,0 +1,32 @@
+<assembly>
+	<id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<files>
+		<file>
+			<source>target/${pom.artifactId}-${pom.version}.jar</source>
+			<outputDirectory>lib/</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<fileSet>
+			<includes>
+				<include>README*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<outputDirectory>properties</outputDirectory>
+			<directory>src/main/config/properties</directory>
+		</fileSet>
+		<fileSet>
+			<outputDirectory>bin</outputDirectory>
+			<directory>src/main/config/bin</directory>
+		</fileSet>
+		<fileSet>
+			<outputDirectory>lib</outputDirectory>
+			<directory>${project.build.directory}/lib</directory>
+		</fileSet>
+
+	</fileSets>
+</assembly>
