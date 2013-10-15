@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SCRIPT_PATH="${BASH_SOURCE[0]}";
+
+cd `dirname ${SCRIPT_PATH}`
+
+CLASSPATH=`	find ../lib/*.jar -type f | tr '\n' ':'`
+CLASSPATH=$CLASSPATH../properties
+
+java -classpath $CLASSPATH ar.com.kache.Main install
