@@ -22,6 +22,7 @@ public class FilterStrategyManager {
 		filters = new HashMap<String, IFilterStrategy>();
 		filters.put(BlackListFilterStrategy.CODE, new BlackListFilterStrategy());
 		filters.put(WhiteListFilterStrategy.CODE, new WhiteListFilterStrategy());
+		filters.put(RegExFilterStrategy.CODE, new RegExFilterStrategy());
 		defaultFilter = new NullFilterStrategy();
 	}
 
