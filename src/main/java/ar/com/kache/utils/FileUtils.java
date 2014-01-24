@@ -92,12 +92,16 @@ public class FileUtils {
 			MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 			input = new FileInputStream(file);
 			StringBuilder builder = new StringBuilder();
-			while (!builder.toString().endsWith("4:info")) {
-				builder.append((char) input.read()); // It's ASCII anyway.
+			boolean eof = false;
+			while (!builder.toString().endsWith("4:info") && !eof) {
+				int r = input.read();
+				builder.append((char)r); // It's ASCII anyway.
+				eof = (r == -1);
 			}
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
-			for (int data; (data = input.read()) > -1; output.write(data))
-				;
+			for (int data; (data = input.read()) > -1; output.write(data)) {
+				//no op
+			}
 			sha1.update(output.toByteArray(), 0, output.size() - 1);
 			return sha1.digest(); // Here's your hash. Do your thing with it.
 		} catch (Exception e) {

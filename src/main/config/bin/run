@@ -7,4 +7,4 @@ cd `dirname ${SCRIPT_PATH}`
 CLASSPATH=`	find ../lib/*.jar -type f | tr '\n' ':'`
 CLASSPATH=$CLASSPATH../properties
 
-java -classpath $CLASSPATH ar.com.kache.Main
+java -classpath $CLASSPATH ar.com.kache.Main $*

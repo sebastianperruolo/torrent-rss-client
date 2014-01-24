@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Epublibre(Arranque web) - Pack 7 de 7</title>
+    <link>https://dl.dropboxusercontent.com/s/cwlop5i9vstxv24/RSS-7_7.rss</link>
+    <description>RSS con la séptima parte de los 1.602 enlaces de la web publicados hasta el 23-04-2013</description>
+    <item>
+      <title><![CDATA[Video1]]></title>
+      <link><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&dn=Video1]]></link>
+      <description><![CDATA[Video 1]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Video2]]></title>
+      <link><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&dn=Video2]]></link>
+      <description><![CDATA[Video 2]]></description>
+    </item>
+    </channel>
+</rss>

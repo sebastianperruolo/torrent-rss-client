@@ -11,12 +11,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Configuration {
-	
+
 	private String watchDir;
 	private String magnetLinkCommand;
-	
-	@XmlElementWrapper(name="feeds")
-	@XmlElement(name="feed")
+
+	@XmlElementWrapper(name = "feeds")
+	@XmlElement(name = "feed")
 	private List<ConfigFeed> configFeeds;
 
 	public List<ConfigFeed> getConfigFeeds() {
@@ -40,10 +40,25 @@ public class Configuration {
 	}
 
 	/**
-	 * @param magnetLinkCommand the magnetLinkCommand to set
+	 * @param magnetLinkCommand
+	 *            the magnetLinkCommand to set
 	 */
 	public void setMagnetLinkCommand(String magnetLinkCommand) {
 		this.magnetLinkCommand = magnetLinkCommand;
 	}
 
+	public void sendMagnetLink(String magnetLink) {
+		// "/usr/bin/transmission-remote --add \"%s\"";
+		String soCommand = this.getMagnetLinkCommand();
+
+		String command = String.format(soCommand, magnetLink);
+		try {
+			System.out.println("Executing command: " + command);
+			Process tr = Runtime.getRuntime().exec(command);
+			tr.waitFor();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		System.out.println("----\n");
+	}
 }

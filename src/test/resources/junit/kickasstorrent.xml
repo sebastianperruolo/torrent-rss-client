@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:torrent="http://xmlns.ezrss.it/0.1/">
+<channel>
+    <title>tv torrents RSS feed - KickassTorrents</title>
+    <link>http://kickass.to/</link>
+    <description>tv torrents RSS feed</description>
+    <item>
+        <title>Video1</title>
+      <description><![CDATA[Video 1]]></description>
+        <category>TV</category>
+      <author>http://kickass.to/user/anUser/</author>        <link>http://kache.com.ar/torrent-rss-client/video1.html</link>
+        <guid>http://kache.com.ar/torrent-rss-client/video1.html</guid>
+        <pubDate>Thu, 23 Jan 2014 14:19:59 +0000</pubDate>
+        <torrent:contentLength>98907986</torrent:contentLength>
+        <torrent:infoHash>0000000000001111111111112222222222222222</torrent:infoHash>
+        <torrent:magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&dn=Video1]]></torrent:magnetURI>
+        <torrent:seeds>1</torrent:seeds>
+        <torrent:peers>2</torrent:peers>
+        <torrent:verified>1</torrent:verified>
+        <torrent:fileName>video1.torrent</torrent:fileName>
+        <enclosure url="http://kache.com.ar/torrent-rss-client/video1.torrent" length="98907986" type="application/x-bittorrent" />
+    </item>
+    <item>
+        <title>Video2</title>
+      <description><![CDATA[Video 2]]></description>
+        <category>TV</category>
+      <author>http://kickass.to/user/anUser/</author>        <link>http://kache.com.ar/torrent-rss-client/video2.html</link>
+        <guid>http://kache.com.ar/torrent-rss-client/video2.html</guid>
+        <pubDate>Thu, 23 Jan 2014 14:19:25 +0000</pubDate>
+        <torrent:contentLength>446340945</torrent:contentLength>
+        <torrent:infoHash>0000000000001111111111112222222222222222</torrent:infoHash>
+        <torrent:magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&dn=Video2]]></torrent:magnetURI>
+        <torrent:seeds>0</torrent:seeds>
+        <torrent:peers>0</torrent:peers>
+        <torrent:verified>1</torrent:verified>
+        <torrent:fileName>video2.torrent</torrent:fileName>
+        <enclosure url="http://kache.com.ar/torrent-rss-client/video2.torrent" length="446340945" type="application/x-bittorrent" />
+    </item>
+    <item>
+        <title>Video3</title>
+      <description><![CDATA[Video 3]]></description>
+        <category>TV</category>
+      <author>http://kickass.to/user/anUser/</author>        <link>http://kache.com.ar/torrent-rss-client/video3.html</link>
+        <guid>http://kache.com.ar/torrent-rss-client/video3.html</guid>
+        <pubDate>Thu, 23 Jan 2014 14:19:06 +0000</pubDate>
+        <torrent:contentLength>365416070</torrent:contentLength>
+        <torrent:infoHash>0000000000001111111111112222222222222222</torrent:infoHash>
+        <torrent:magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&dn=Video3]]></torrent:magnetURI>
+        <torrent:seeds>0</torrent:seeds>
+        <torrent:peers>0</torrent:peers>
+        <torrent:verified>1</torrent:verified>
+        <torrent:fileName>video3.torrent</torrent:fileName>
+        <enclosure url="http://kache.com.ar/torrent-rss-client/video3.torrent" length="365416070" type="application/x-bittorrent" />
+    </item>
+    </channel>
+</rss>

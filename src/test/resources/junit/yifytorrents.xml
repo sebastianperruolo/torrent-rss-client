@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>YIFY-Torrents RSS</title>
+		<description>Most popular Torrents in the smallest file size</description>
+		<link>http://yify-torrents.com/</link>
+				<item>
+		<title>Video1</title>
+		<description>Video 1</description>
+		<link>http://kache.com.ar/torrent-rss-client/video1.html</link>
+		<enclosure url="http://kache.com.ar/torrent-rss-client/video1.torrent" length="10564" type="application/x-bittorrent" />
+		<pubDate>Sun, 19 Jan 2014 17:17:19 +0000</pubDate>
+		</item>
+				<item>
+		<title>Video2</title>
+		<description>Video 2</description>
+		<link>http://kache.com.ar/torrent-rss-client/video2.html</link>
+		<enclosure url="http://kache.com.ar/torrent-rss-client/video2.torrent" length="8269" type="application/x-bittorrent" />
+		<pubDate>Sun, 12 Jan 2014 10:59:35 +0000</pubDate>
+		</item>
+				<item>
+		<title>Video3</title>
+		<description>Video 3</description>
+		<link>http://kache.com.ar/torrent-rss-client/video3.html</link>
+		<enclosure url="http://kache.com.ar/torrent-rss-client/video3.torrent" length="9955" type="application/x-bittorrent" />
+		<pubDate>Sat, 11 Jan 2014 06:06:35 +0000</pubDate>
+		</item>
+			</channel>
+</rss>

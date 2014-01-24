@@ -22,13 +22,15 @@ public class MagnetLinkFormat implements ILinkFormat {
 	@Override
 	public boolean existsTemp() {
 		if (tempFile.isFile()) {
-			System.out.println("Torrent file '" + tempFile.getAbsolutePath() + "' already exists");
+			System.out.println("Magnetlink file '" + tempFile.getAbsolutePath() + "' exists");
 			return true;
 		}
+		System.out.println("Torrent file '" + tempFile.getAbsolutePath() + "' don't exists");
 		return false;
 	}
 	@Override
 	public void download() {
+		System.out.println("Creating magnetlink file...");
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(tempFile);
@@ -52,17 +54,7 @@ public class MagnetLinkFormat implements ILinkFormat {
 
 	@Override
 	public void sendToTorrentEngine() {
-		//"/usr/bin/transmission-remote --add \"%s\"";
-		String soCommand = appConfiguration.getConfiguration().getMagnetLinkCommand();
-		
-		String command = String.format(soCommand, url);
-		try {
-			System.out.println("Executing command: " + command);
-			Process tr = Runtime.getRuntime().exec( command );
-			tr.waitFor();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+		appConfiguration.getConfiguration().sendMagnetLink(url);
 	}
 
 }

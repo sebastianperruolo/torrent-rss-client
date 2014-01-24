@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="0.94">
+  <channel>
+    <title>aRGENTeaM TV Series RSS Feeder de Torrents HR</title>
+    <link>http://www.argenteam.net/argenteam_tvseries_torrents_hr</link>
+    <description>Feed de Torrents HR. Filtrar segun la serie a bajar.
+Los posibles valores son:
+AlmostHuman, AmericanHorrorStory, AngerManagement, Arrow, BatesMotel, BeautyAndTheBeastXII, BeingHuman, BewareBatman, BoardwalkEmpire, Bones, BreakingBad, BronBroen, Californication, Continuum, Copper, CriminalMinds, CurbYourEnthusiasm, Defiance, Dexter, DoctorWho, Dracula, FallingSkies, FamilyGuy, FatherBrown, GameOfThrones, Grimm, Hannibal, Haven, Helix, HellonWheels, HemlockGrove, Homeland, HouseOfCards, HowIMetYourMother, InTheFlesh, LowWinterSun, Luther, MadMen, MagicCity, MajorCrimes, AgentsOfSHIELD, Merlin, Miranda, Misfits, ModernFamily, NewGirl, Nikita, NurseJackie, OnceUponATime, Perception, PersonOfInterest, Revolution, RipperStreet, Sherlock, SleepyHollow, Southland, Supernatural, TheAmericans, BigBangTheory, TheBlacklist, TheBorgias, TheBridge, TheFollowing, TheGoodWife, TheKilling, TheLastAirbenderTheLegendOfKorra, TheMentalist, TheNewsroom, TheOriginals, TheTomorrowPeople, TheVampireDiaries, TheVentureBros, TheWalkingDead, TopOfTheLake, Touch, Transporter, TrueBlood, TrueDetective, TwoAndAHalfMen, UnderTheDome, Vice, Vikings, WarehouseThirdteen, WhatRemains, Wilfred, ZeroHour</description>
+    <language>es</language>
+    <copyright>Copyright 2011, aRGENTeaM</copyright>
+    <pubDate>Thu, 23 Jan 2014 14:06:54 GMT</pubDate>
+    <image>
+      <title>aRGENTeaM</title>
+      <url>http://www.argenteam.net/rss/argenteam-rss.png</url>
+      <link>http://www.argenteam.net/</link>
+      <description>aRGENTeaM</description>
+    </image>
+    <item>
+      <title>Video1</title>
+      <link>http://kache.com.ar/torrent-rss-client/video1.torrent</link>
+      <description type="text/html">Video 1</description>
+      <pubDate>Thu, 23 Jan 2014 04:42:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Video2</title>
+      <link>http://kache.com.ar/torrent-rss-client/video2.torrent</link>
+      <description type="text/html">Video 2</description>
+      <pubDate>Thu, 23 Jan 2014 04:33:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>Video3</title>
+      <link>http://kache.com.ar/torrent-rss-client/video3.torrent</link>
+      <description type="text/html">Video 3</description>
+      <pubDate>Thu, 23 Jan 2014 04:24:12 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
+

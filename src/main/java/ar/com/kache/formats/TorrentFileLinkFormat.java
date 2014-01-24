@@ -21,13 +21,15 @@ public class TorrentFileLinkFormat implements ILinkFormat {
 	@Override
 	public boolean existsTemp() {
 		if (tempTorrent.isFile()) {
-			System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' already exists");
+			System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' exists");
 			return true;
 		}
+		System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' don't exists");
 		return false;
 	}
 	@Override
 	public void download() {
+		System.out.println("Downloading torrent file...");
 		try {
 			int code = FileUtils.getResponseCode(url);
 			if (code != 200) {

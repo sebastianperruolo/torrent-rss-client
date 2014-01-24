@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE torrent PUBLIC "-//bitTorrent//DTD torrent 0.1//EN" "http://xmlns.ezrss.it/0.1/dtd/">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>The Pirate Bay - TV shows</title>
+		<link>http://thepiratebay.se</link>
+		<description>The newest torrents from The Pirate Bay</description>
+		<language>en</language>
+		<pubDate>Thu, 23 Jan 2014 15:52:18 +0100</pubDate>
+		<lastBuildDate>Thu, 23 Jan 2014 15:52:18 +0100</lastBuildDate>
+		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+		<generator>TPB RSS Generator 1.2</generator>
+
+		<item>
+			<title><![CDATA[Video1]]></title>
+			<link>magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video1</link>
+			<comments>http://kache.com.ar/torrent-rss-client/video1.html</comments>
+			<pubDate>Thu, 23 Jan 2014 14:52:50 +0100</pubDate>
+			<category domain="http://thepiratebay.se/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[NoBody]]></dc:creator>
+			<guid>http://thepiratebay.se/torrent/number/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>202159428</contentLength>
+				<infoHash>0000000000001111111111112222222222222222</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video1]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Video2]]></title>
+			<link>magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video2</link>
+			<comments>http://kache.com.ar/torrent-rss-client/video2.html</comments>
+			<pubDate>Thu, 23 Jan 2014 14:52:06 +0100</pubDate>
+			<category domain="http://thepiratebay.se/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[NoBody]]></dc:creator>
+			<guid>http://thepiratebay.se/torrent/number/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>362768384</contentLength>
+				<infoHash>F92AD8F85B58BC408246AAE8F004E9DC3C423874</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video2]]></magnetURI>
+			</torrent>
+		</item>
+		<item>
+			<title><![CDATA[Video3]]></title>
+			<link>magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video3</link>
+			<comments>http://kache.com.ar/torrent-rss-client/video3.html</comments>
+			<pubDate>Thu, 23 Jan 2014 14:37:23 +0100</pubDate>
+			<category domain="http://thepiratebay.se/browse/205"><![CDATA[Video / TV shows]]></category>
+			<dc:creator><![CDATA[NoBody]]></dc:creator>
+			<guid>http://thepiratebay.se/torrent/number/</guid>
+			<torrent xmlns="http://xmlns.ezrss.it/0.1/">
+				<contentLength>450859015</contentLength>
+				<infoHash>0000000000001111111111112222222222222222</infoHash>
+				<magnetURI><![CDATA[magnet:?xt=urn:btih:0000000000001111111111112222222222222222&amp;dn=Video3]]></magnetURI>
+			</torrent>
+		</item>
+	</channel>
+</rss>
