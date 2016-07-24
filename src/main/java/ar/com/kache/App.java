@@ -1,160 +1,72 @@
 package ar.com.kache;
 
-import it.sauronsoftware.feed4j.FeedIOException;
-import it.sauronsoftware.feed4j.FeedParser;
-import it.sauronsoftware.feed4j.FeedXMLParseException;
-import it.sauronsoftware.feed4j.UnsupportedFeedException;
-import it.sauronsoftware.feed4j.bean.Feed;
-import it.sauronsoftware.feed4j.bean.FeedItem;
+import ar.com.kache.collectors.ListCollector;
+import ar.com.kache.collectors.TorrentCollector;
+import ar.com.kache.filters.PatternFeedItemFilter;
+import ar.com.kache.handlers.FeedATHandler;
+import ar.com.kache.model.FeedItem;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
-
-import ar.com.kache.config.AppConfiguration;
-import ar.com.kache.config.ConfigFeed;
-import ar.com.kache.filters.FilterStrategyManager;
-import ar.com.kache.filters.IFilterStrategy;
-import ar.com.kache.formats.ILinkFormat;
-import ar.com.kache.formats.LinkFormatManager;
-import ar.com.kache.history.FileHistory;
-import ar.com.kache.history.IHistory;
-import ar.com.kache.utils.FileUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Main App class
- *
+ * Hello world!
  */
 public class App {
-	private IHistory history;
-	private AppConfiguration appConfiguration;
-	private LinkFormatManager linkFormatManager;
-	
-	
-	public App(AppConfiguration appConfiguration) {
-		this.appConfiguration = appConfiguration;
-		this.history = new FileHistory(appConfiguration.getHistoryFile());
-		this.linkFormatManager = new LinkFormatManager(this.appConfiguration);
-	}
-	
-	public void execute() {
-		for (ConfigFeed configFeed : appConfiguration.getConfiguration().getConfigFeeds()) {
-			System.out.println("Feed " + configFeed.getTitle());
-			try {
-				process(configFeed);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	private void process(ConfigFeed configFeed) throws FeedIOException, FeedXMLParseException, UnsupportedFeedException, IOException {
-		URL url = new URL(configFeed.getUrl());
-		File feedFile = new File(AppConfiguration.appLog, configFeed.getTitle() + ".xml");
-		
-		FileUtils.download(url, feedFile);
-		Feed feed = FeedParser.parse(url, new FileInputStream(feedFile));
-		
-		for (FeedItem feedItem : feed.getItems()) {
-			process(configFeed, feedItem);
-		}
-	}
-	
-	private void process(ConfigFeed configFeed, FeedItem feedItem) {
-		IFilterStrategy filterStrategy = FilterStrategyManager.getInstance().getFilterFor(configFeed.getFilterStrategy());
-		if (!filterStrategy.accept(configFeed, feedItem)) {
-			System.out.println("\n========Feed '" + feedItem.getTitle() + "' was rejected");
-			return;
-		} 
 
-		System.out.println("\n========Feed '" + feedItem.getTitle() + "' was accepted");
-//		URL url = getURL(feedItem);
-		ILinkFormat linkStrategy = linkFormatManager.getLinkFormatFor(feedItem);
-		if (linkStrategy == null) {
-			return;
-		}
-		
-//		String fileName = feedItem.getTitle() + ".torrent";
-		
-//		File tempTorrent = new File(AppConfiguration.appTemp, fileName);
-		
-//		if (tempTorrent.isFile()) {
-//			System.out.println("Torrent file '" + tempTorrent.getAbsolutePath() + "' already exists");
-//			return;
-//		}
-		
-		if (linkStrategy.existsTemp()) {
-			return;
-		}
-		
-//		try {
-//			int code = FileUtils.getResponseCode(url);
-//			if (code != 200) {
-//				System.out.println("URL " + url.toString() + " return " + code + " code.");
-//				return;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			//return;
-//		}
-//		
-//		try {
-//			FileUtils.download(url, tempTorrent);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return;
-//		}
-		
-		linkStrategy.download();
-		
-		if (!linkStrategy.existsTemp()) {
-			return;
-		}
-//		String hash = FileUtils.hash(tempTorrent);
-//		
-//		if (hash == null) {
-//			System.out.println("Can't get hash for file '" + tempTorrent.getAbsolutePath() + "'. Is it a torrent file?");
-//			return;
-//		}
+    private static Map<String, List<String>> process(String[] args) {
+        final Map<String, List<String>> params = new HashMap<>();
 
-		
-//		if (history.exists(hash)) {
-//			System.out.println("File already exists");
-//			return;
-//		}
-		if (history.exists(linkStrategy.getHash())) {
-			System.out.println("File already exists");
-			return;
-		}
-		
-//		File watchdirTorrent = new File(appConfiguration.getConfiguration().getWatchDir(), tempTorrent.getName());
-//		try {
-//			FileUtils.copyFile(tempTorrent, watchdirTorrent);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return;
-//		}
-		linkStrategy.sendToTorrentEngine();
-		history.add(linkStrategy.getHash());
-//		System.out.println("Added file " + watchdirTorrent.getAbsolutePath());
-	}
-	
-//	private URL getURL(FeedItem feedItem) {
-//		if (feedItem.getEnclosureCount() > 0) {
-//			return feedItem.getEnclosure(0).getURL();
-//		}
-//		String link = feedItem.getLink();
-//		if (link == null) {
-//			return null;
-//		}
-//		try {
-//			URL url = new URL(link);
-//			//in case URL is a https address
-//			return new URL("http", url.getHost(), url.getPort(), url.getFile());
-//		} catch (MalformedURLException e) {
-//			
-//		}
-//		return null;
-//	}
+        List<String> options = null;
+        for (int i = 0; i < args.length; i++) {
+            final String a = args[i];
+
+            if (a.charAt(0) == '-') {
+                if (a.length() < 2) {
+                    System.err.println("Error at argument " + a);
+                    return params;
+                }
+
+                options = new ArrayList<>();
+                params.put(a.substring(1), options);
+            }
+            else if (options != null) {
+                options.add(a);
+            }
+            else {
+                System.err.println("Illegal parameter usage");
+                return params;
+            }
+        }
+        return params;
+    }
+
+    private static String get(String key, Map<String, List<String>> params) {
+        if (params.containsKey(key)) {
+            if (!params.get(key).isEmpty()) {
+                return params.get(key).get(0);
+            }
+        }
+        System.err.print(String.format("Missing parameter \"%s\"", key));
+        System.exit(1);
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Map<String, List<String>> params = process(args);
+        String url = get("url", params);
+        String include = get("include", params);
+
+        FeedATHandler handler = new FeedATHandler(new TorrentCollector(new PatternFeedItemFilter(include)));
+
+        try {
+            System.out.println("Processing: " + url);
+            FeedSAXParser.parse(new URL(url).openStream(), handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
