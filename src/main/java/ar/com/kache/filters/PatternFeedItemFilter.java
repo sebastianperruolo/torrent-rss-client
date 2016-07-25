@@ -21,7 +21,7 @@ public class PatternFeedItemFilter implements FeedItemFilter {
             return false;
         }
         for (String name : items) {
-            if (elem.title.startsWith(name)) {
+            if (elem.title.contains(name)) {
                 return true;
             }
         }
