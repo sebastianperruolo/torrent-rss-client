@@ -11,14 +11,16 @@ import ar.com.kache.model.FeedItem;
  */
 public class TorrentCollector implements FeedCollector<FeedItem> {
     private final FeedItemFilter filter;
-    private final FeedItemExecutor executor = new TransmissionRemoteExecutor();
+    private final FeedItemExecutor executor;
 
     public TorrentCollector() {
         this.filter = new NullFeedItemFilter(true);
+        this.executor = new TransmissionRemoteExecutor();
     }
 
-    public TorrentCollector(FeedItemFilter filter) {
+    public TorrentCollector(final FeedItemFilter filter, final String byPass) {
         this.filter = filter;
+        this.executor = new TransmissionRemoteExecutor(byPass == null? "" : byPass);
     }
 
     @Override

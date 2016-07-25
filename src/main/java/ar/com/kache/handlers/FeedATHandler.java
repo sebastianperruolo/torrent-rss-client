@@ -29,6 +29,9 @@ public class FeedATHandler extends FeedHandler {
             case "item":
                 itemBuilder = new FeedItem.FeedItemBuilder();
                 break;
+            case "enclosure":
+                itemBuilder.enclosure(attributes.getValue("url"));
+                break;
         }
     }
 

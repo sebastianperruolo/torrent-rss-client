@@ -1,12 +1,10 @@
 package ar.com.kache;
 
-import ar.com.kache.collectors.ListCollector;
 import ar.com.kache.collectors.TorrentCollector;
 import ar.com.kache.filters.PatternFeedItemFilter;
 import ar.com.kache.handlers.FeedATHandler;
-import ar.com.kache.model.FeedItem;
+import ar.com.kache.utils.URLUtils;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +42,7 @@ public class App {
         return params;
     }
 
-    private static String get(String key, Map<String, List<String>> params) {
+    private static String mandatory(String key, Map<String, List<String>> params) {
         if (params.containsKey(key)) {
             if (!params.get(key).isEmpty()) {
                 return params.get(key).get(0);
@@ -55,18 +53,46 @@ public class App {
         return null;
     }
 
+    private static String optional(String key, Map<String, List<String>> params) {
+        if (params.containsKey(key)) {
+            if (!params.get(key).isEmpty()) {
+                return params.get(key).get(0);
+            } else {
+                return "";
+            }
+        }
+        //System.out.println("containsKey " + key +  params.containsKey(key));
+        //System.out.println("isEmpty " + key +  params.get(key).isEmpty());
+        return null;
+    }
+
+    private static String bypass(String key, Map<String, List<String>> params) {
+        String bypass = optional(key, params);
+        if (bypass == null) {
+            return "";
+        }
+        return " -" + key + " " + bypass;
+    }
+
     public static void main(String[] args) {
         Map<String, List<String>> params = process(args);
-        String url = get("url", params);
-        String include = get("include", params);
+        // System.out.println(params.toString());
 
-        FeedATHandler handler = new FeedATHandler(new TorrentCollector(new PatternFeedItemFilter(include)));
+        String url = mandatory("url", params);
+        String include = mandatory("include", params);
+        String bypass = bypass("-download-dir", params)
+                + bypass("-start-paused", params);
+
+        //System.out.println("bypass: " + bypass);
+
+        FeedATHandler handler = new FeedATHandler(new TorrentCollector(new PatternFeedItemFilter(include), bypass));
 
         try {
-            System.out.println("Processing: " + url);
-            FeedSAXParser.parse(new URL(url).openStream(), handler);
+            FeedSAXParser.parse(URLUtils.get(url), handler);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
